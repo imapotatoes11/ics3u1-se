@@ -17,12 +17,14 @@
  * Dec. 15, 2023
  * Logic engine for the ICS3U Software Engineering project
  * */
-package se2;
+// package se2;
 
-import java.io.IOException;
-import java.util.Objects;
-import java.util.Scanner;
-import se2.Line.*;
+// import java.io.IOException;
+// import java.util.Objects;
+// import java.util.Scanner;
+// import se2.Line.*;
+import java.io.*;
+import java.util.*;
 
 public class ATM {
     public static final String CSV_DIRECTORY = "src/se2/data.csv";
@@ -182,7 +184,7 @@ public class ATM {
             Scanner sc = new Scanner (System.in);
             boolean hasChecking = parser.getLine(userID).isChecking();
             boolean hasSavings = parser.getLine(userID).isSavings();
-            AccountType accountToOpen;
+            Line.AccountType accountToOpen;
 
             // check which accounts the user has open
             if (hasChecking && hasSavings) {
@@ -211,9 +213,9 @@ public class ATM {
             } else {
                 // ask user which account to open
                 System.out.print("Which kind of account do you want to open, c for checking, and s for savings: ");
-                accountToOpen = Objects.equals(sc.nextLine(), "c") ? AccountType.CHECKING : AccountType.SAVINGS;
+                accountToOpen = Objects.equals(sc.nextLine(), "c") ? Line.AccountType.CHECKING : Line.AccountType.SAVINGS;
 
-                if (accountToOpen == AccountType.CHECKING) {
+                if (accountToOpen == Line.AccountType.CHECKING) {
                     // open a checking account
                     parser.getLine(userID).setChecking(true);
                     parser.getLine(userID).setValueOfChecking(0);
@@ -255,7 +257,7 @@ public class ATM {
             Scanner sc = new Scanner (System.in);
             boolean hasChecking = parser.getLine(userID).isChecking();
             boolean hasSavings = parser.getLine(userID).isSavings();
-            AccountType accountType;
+            Line.AccountType accountType;
 
             // check which accounts the user has open
             if ((!hasChecking) && !hasSavings) {
@@ -284,10 +286,10 @@ public class ATM {
             } else {
                 // ask which account to close
                 System.out.print("Do you want to close your checking or savings account (c for checking, s for savings)? ");
-                accountType = Objects.equals(sc.nextLine(), "c") ? AccountType.CHECKING : AccountType.SAVINGS;
+                accountType = Objects.equals(sc.nextLine(), "c") ? Line.AccountType.CHECKING : Line.AccountType.SAVINGS;
 
                 // close the corresponding account
-                if (accountType == AccountType.CHECKING) {
+                if (accountType == Line.AccountType.CHECKING) {
                     // close the checking account
                     parser.getLine(userID).setChecking(false);
                     parser.getLine(userID).setValueOfChecking(-1);
@@ -327,7 +329,7 @@ public class ATM {
         Scanner sc = new Scanner(System.in);
         int answered = 0; // flag to track if the user entered a valid input
         // initialize account type to prevent problems
-        Line.AccountType accountType = Line.AccountType.CHECKING; // account type
+        Line.Line.AccountType accountType = Line.Line.AccountType.CHECKING; // account type
         String newAccount; // whether the user wants to make a new account
         int accounts = 0; // number of accounts
         double depositAmount; // amount to deposit
@@ -377,11 +379,11 @@ public class ATM {
                 // if they have one account it checks which one
                 case 1:
                     if (accountChecking){
-                        accountType = Line.AccountType.CHECKING;
+                        accountType = Line.Line.AccountType.CHECKING;
                         originalBalance = parser.getLine(userID).valueOfChecking();
                     }
                     else {
-                        accountType = Line.AccountType.SAVINGS;
+                        accountType = Line.Line.AccountType.SAVINGS;
                         originalBalance = parser.getLine(userID).valueOfSavings();
                     }
                     break;
@@ -391,8 +393,8 @@ public class ATM {
                     while(answered == 0) {
                         // prompts user which account they want to deposit too
                         System.out.print("Which account do you want to deposit to (c for checking, s for savings):");
-                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.AccountType.CHECKING : Line.AccountType.SAVINGS;
-                        if (accountType == Line.AccountType.SAVINGS) {
+                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.Line.AccountType.CHECKING : Line.Line.AccountType.SAVINGS;
+                        if (accountType == Line.Line.AccountType.SAVINGS) {
                             originalBalance = parser.getLine(userID).valueOfSavings();
                             answered++;
                         } else {
@@ -414,7 +416,7 @@ public class ATM {
                     // add the deposit amount to the original balance
                     // set the new balance to the new value
                     // print the new balance
-                    if (accountType == Line.AccountType.SAVINGS){
+                    if (accountType == Line.Line.AccountType.SAVINGS){
                         parser.getLine(userID).setValueOfSavings(round(originalBalance+depositAmount));
                         parser.write();
                         System.out.printf("Your savings accounts balance is now $%.2f\n", (parser.getLine(userID).valueOfSavings()));//(originalBalance+depositAmount));
@@ -448,7 +450,7 @@ public class ATM {
         Scanner sc = new Scanner(System.in);
         int answered = 0; // flag to track if the user entered a valid input
         // initialize account type to prevent problems
-        AccountType accountType = Line.AccountType.CHECKING; // account type
+        Line.AccountType accountType = Line.Line.AccountType.CHECKING; // account type
         String newAccount; // whether the user wants to make a new account
         int accounts = 0; // number of accounts
         double withdrawAmount; // amount to withdraw
@@ -497,11 +499,11 @@ public class ATM {
                 // if they have one account it checks which one
                 case 1:
                     if (accountChecking){
-                        accountType = AccountType.CHECKING;
+                        accountType = Line.AccountType.CHECKING;
                         originalBalance = parser.getLine(userID).valueOfChecking();
                     }
                     else {
-                        accountType = AccountType.SAVINGS;
+                        accountType = Line.AccountType.SAVINGS;
                         originalBalance = parser.getLine(userID).valueOfSavings();
                     }
                     break;
@@ -511,8 +513,8 @@ public class ATM {
                     while(answered == 0) {
                         // prompts user which account they want to deposit too
                         System.out.print("Which account do you want to withdraw from:");
-                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.AccountType.CHECKING : Line.AccountType.SAVINGS;
-                        if (accountType == AccountType.SAVINGS) {
+                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.Line.AccountType.CHECKING : Line.Line.AccountType.SAVINGS;
+                        if (accountType == Line.AccountType.SAVINGS) {
                             originalBalance = parser.getLine(userID).valueOfSavings();
                             answered++;
                         } else {
@@ -529,7 +531,7 @@ public class ATM {
                 System.out.print("Withdraw: $");
                 withdrawAmount = sc.nextDouble();
                 if (withdrawAmount > 0.00) {
-                    if (accountType == AccountType.SAVINGS){
+                    if (accountType == Line.AccountType.SAVINGS){
                         if (originalBalance > withdrawAmount) {
                             parser.getLine(userID).setValueOfSavings((originalBalance - withdrawAmount));
                             System.out.printf("Your savings accounts balance is now $%.2f", (originalBalance - withdrawAmount));
