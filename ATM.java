@@ -329,7 +329,7 @@ public class ATM {
         Scanner sc = new Scanner(System.in);
         int answered = 0; // flag to track if the user entered a valid input
         // initialize account type to prevent problems
-        Line.Line.AccountType accountType = Line.Line.AccountType.CHECKING; // account type
+        Line.AccountType accountType = Line.AccountType.CHECKING; // account type
         String newAccount; // whether the user wants to make a new account
         int accounts = 0; // number of accounts
         double depositAmount; // amount to deposit
@@ -379,11 +379,11 @@ public class ATM {
                 // if they have one account it checks which one
                 case 1:
                     if (accountChecking){
-                        accountType = Line.Line.AccountType.CHECKING;
+                        accountType = Line.AccountType.CHECKING;
                         originalBalance = parser.getLine(userID).valueOfChecking();
                     }
                     else {
-                        accountType = Line.Line.AccountType.SAVINGS;
+                        accountType = Line.AccountType.SAVINGS;
                         originalBalance = parser.getLine(userID).valueOfSavings();
                     }
                     break;
@@ -393,8 +393,8 @@ public class ATM {
                     while(answered == 0) {
                         // prompts user which account they want to deposit too
                         System.out.print("Which account do you want to deposit to (c for checking, s for savings):");
-                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.Line.AccountType.CHECKING : Line.Line.AccountType.SAVINGS;
-                        if (accountType == Line.Line.AccountType.SAVINGS) {
+                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.AccountType.CHECKING : Line.AccountType.SAVINGS;
+                        if (accountType == Line.AccountType.SAVINGS) {
                             originalBalance = parser.getLine(userID).valueOfSavings();
                             answered++;
                         } else {
@@ -416,7 +416,7 @@ public class ATM {
                     // add the deposit amount to the original balance
                     // set the new balance to the new value
                     // print the new balance
-                    if (accountType == Line.Line.AccountType.SAVINGS){
+                    if (accountType == Line.AccountType.SAVINGS){
                         parser.getLine(userID).setValueOfSavings(round(originalBalance+depositAmount));
                         parser.write();
                         System.out.printf("Your savings accounts balance is now $%.2f\n", (parser.getLine(userID).valueOfSavings()));//(originalBalance+depositAmount));
@@ -450,7 +450,7 @@ public class ATM {
         Scanner sc = new Scanner(System.in);
         int answered = 0; // flag to track if the user entered a valid input
         // initialize account type to prevent problems
-        Line.AccountType accountType = Line.Line.AccountType.CHECKING; // account type
+        Line.AccountType accountType = Line.AccountType.CHECKING; // account type
         String newAccount; // whether the user wants to make a new account
         int accounts = 0; // number of accounts
         double withdrawAmount; // amount to withdraw
@@ -513,7 +513,7 @@ public class ATM {
                     while(answered == 0) {
                         // prompts user which account they want to deposit too
                         System.out.print("Which account do you want to withdraw from:");
-                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.Line.AccountType.CHECKING : Line.Line.AccountType.SAVINGS;
+                        accountType = Objects.equals(sc.nextLine(), "c") ? Line.AccountType.CHECKING : Line.AccountType.SAVINGS;
                         if (accountType == Line.AccountType.SAVINGS) {
                             originalBalance = parser.getLine(userID).valueOfSavings();
                             answered++;

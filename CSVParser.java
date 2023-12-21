@@ -17,7 +17,7 @@
  * Dec. 13, 2023
  * The program
  * */
-package se2;
+//package se2; 
 
 import java.io.*;
 import java.util.ArrayList;
