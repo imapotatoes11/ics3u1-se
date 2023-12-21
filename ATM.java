@@ -27,7 +27,7 @@ import java.io.*;
 import java.util.*;
 
 public class ATM {
-    public static final String CSV_DIRECTORY = "src/se2/data.csv";
+    public static final String CSV_DIRECTORY = "data.csv";
 
     /**
      * Validate user login. Will throw corresponding error if user id is not found
