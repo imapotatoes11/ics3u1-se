@@ -13,14 +13,10 @@
  * license for the specific language governing permissions and limitations under
  * the license.
  * */
-/*
- * Dec 21, 2023
- * The program
- * */
-package se2;
+// package se2;
 
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void loop() throws UserError, IOException {
